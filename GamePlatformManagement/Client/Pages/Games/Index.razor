@@ -4,7 +4,7 @@
 @attribute [Authorize]
 
 
-<h3 class="card-title"> Our Games</h3>
+<h3 class="card-title" style="justify-content:center"> Our Games</h3>
 <PageTitle>Our Games</PageTitle>
 <br />
 
@@ -26,7 +26,7 @@ else
         @foreach (var game in Games)
         {
             <div class="card m-2" style="width: 18rem;">
-                <img src="/images/image1.jpg" class="card-img-top" alt="Game Image">
+                <img src="/favicon.png" class="card-img-top" alt="Game Image">
                 <div class="card-body">
                     <h5 class="card-title">@game.Title</h5>
                     <p class="card-text">Price: $@game.Price</p>
