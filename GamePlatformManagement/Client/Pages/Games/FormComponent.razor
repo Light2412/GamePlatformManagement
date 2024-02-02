@@ -1,0 +1,59 @@
+﻿<EditForm Model="@game" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label>Title: </label>
+            <div>
+                <InputText @bind-Value="@game.Title" class="form-control" />
+                <ValidationMessage For="@(() => game.Title)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Age Group: </label>
+            <div>
+                <InputText @bind-Value="@game.AgeGroup" class="form-control" />
+                <ValidationMessage For="@(() => game.AgeGroup)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Description: </label>
+            <div>
+                <InputTextArea @bind-Value="@game.Description" class="form-control" />
+                <ValidationMessage For="@(() => game.Description)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Genre: </label>
+            <div>
+                <InputText @bind-Value="@game.Genre" class="form-control" />
+                <ValidationMessage For="@(() => game.Genre)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Price of game: </label>
+            <div>
+                <InputNumber @bind-Value="@game.Price" class="form-control" />
+                <ValidationMessage For="@(() => game.Price)" />
+            </div>
+        </div>
+    </fieldset>
+
+
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BackToList Target="games" />
+</EditForm>
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Game? game { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}
+
+

@@ -1,0 +1,74 @@
+﻿@page "/games/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+
+<h3 class="card-title"> Our Games</h3>
+<PageTitle>Our Games</PageTitle>
+<br />
+
+<a href="/games/create" class="btn btn-warning">
+    <span class="oi oi-plus"></span>
+    Create New Game
+</a>
+<hr />
+<br />
+
+@if (Games == null)
+{
+    <div class="alert alert-info">Loading Games...</div>
+}
+else
+{
+    <!-- Games List using flexbox for a responsive layout -->
+    <div class="d-flex flex-wrap">
+        @foreach (var game in Games)
+        {
+            <div class="card m-2" style="width: 18rem;">
+                <img src="/images/image1.jpg" class="card-img-top" alt="Game Image">
+                <div class="card-body">
+                    <h5 class="card-title">@game.Title</h5>
+                    <p class="card-text">Price: $@game.Price</p>
+
+                    <!-- Buttons for view, edit, and create -->
+                    <div class="d-flex justify-content-center">
+                        <a href="/games/view/@game.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/games/edit/@game.Id" class="btn btn-secondary">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(game.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<Game>? Games;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Games = await _client.GetFromJsonAsync<List<Game>>($"{Endpoints.GamesEndpoint}");
+    }
+
+    async Task Delete(int gameId)
+    {
+        if (Games != null)
+        {
+            var game = Games.First(q => q.Id == gameId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {game.Title}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.GamesEndpoint}/{gameId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+}
+
