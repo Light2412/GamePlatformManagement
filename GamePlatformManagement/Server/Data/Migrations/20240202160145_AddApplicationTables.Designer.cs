@@ -4,6 +4,7 @@ using GamePlatformManagement.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamePlatformManagement.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240202160145_AddApplicationTables")]
+    partial class AddApplicationTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -272,73 +275,6 @@ namespace GamePlatformManagement.Server.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Games");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AgeGroup = "Teenagers",
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 2, 3, 0, 17, 28, 754, DateTimeKind.Local).AddTicks(4488),
-                            DateUpdated = new DateTime(2024, 2, 3, 0, 17, 28, 754, DateTimeKind.Local).AddTicks(4502),
-                            Description = "5v5 team-based multiplayer strategy game where two teams battle out to destroy the other enemy's base.",
-                            Genre = "Strategy",
-                            Price = 50.0,
-                            Title = "League Of Legends",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AgeGroup = "Adults",
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 2, 3, 0, 17, 28, 754, DateTimeKind.Local).AddTicks(4506),
-                            DateUpdated = new DateTime(2024, 2, 3, 0, 17, 28, 754, DateTimeKind.Local).AddTicks(4506),
-                            Description = "Assassin's Creed is an open-world, action-adventure, and stealth game franchise published by Ubisoft and developed mainly by its studio Ubisoft Montreal using the game engine Anvil and its more advanced derivatives. ",
-                            Genre = "Adventure",
-                            Price = 85.0,
-                            Title = "Assassin's Creed",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AgeGroup = "Kids",
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 2, 3, 0, 17, 28, 754, DateTimeKind.Local).AddTicks(4509),
-                            DateUpdated = new DateTime(2024, 2, 3, 0, 17, 28, 754, DateTimeKind.Local).AddTicks(4509),
-                            Description = "Mario Kart is a series of kart racing games and a spin-off Mario franchise developed and published by Nintendo. Players compete in go-kart races while using various power-up items. It features characters and courses mostly from the Mario series as well as other gaming franchises such as The Legend of Zelda, Animal Crossing, F-Zero, Excitebike, and Splatoon.",
-                            Genre = "Racing",
-                            Price = 46.0,
-                            Title = "Mario Kart",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AgeGroup = "Teenagers",
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 2, 3, 0, 17, 28, 754, DateTimeKind.Local).AddTicks(4512),
-                            DateUpdated = new DateTime(2024, 2, 3, 0, 17, 28, 754, DateTimeKind.Local).AddTicks(4512),
-                            Description = "FIFA 18 is a football simulation video game developed and published by Electronic Arts and released worldwide on 29 September 2017 for Microsoft Windows, PlayStation 3, PlayStation 4, Xbox 360, Xbox One and Nintendo Switch. It is the 25th installment in the FIFA series.",
-                            Genre = "Football",
-                            Price = 90.0,
-                            Title = "FIFA 18",
-                            UpdatedBy = "System"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AgeGroup = "Adults",
-                            CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 2, 3, 0, 17, 28, 754, DateTimeKind.Local).AddTicks(4515),
-                            DateUpdated = new DateTime(2024, 2, 3, 0, 17, 28, 754, DateTimeKind.Local).AddTicks(4515),
-                            Description = "Street Fighter Alpha: Warriors' Dreams, known as Street Fighter Zero[a] in Japan, Asia, South America, and Oceania, is a 2D arcade fighting game by Capcom ",
-                            Genre = "Fighting",
-                            Price = 20.0,
-                            Title = "Street Fighter Alpha",
-                            UpdatedBy = "System"
-                        });
                 });
 
             modelBuilder.Entity("GamePlatformManagement.Shared.Domain.Staff", b =>
