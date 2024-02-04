@@ -13,5 +13,6 @@ namespace GamePlatformManagement.Shared.Domain
         public string? Description { get; set; }
         public string? Genre { get; set; }
         public double Price { get; set; }
+
     }
 }

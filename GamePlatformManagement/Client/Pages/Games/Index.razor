@@ -15,6 +15,17 @@
 <hr />
 <br />
 
+@*Call SearchGame Method Whenever Something Is Typed Into Search Bar*@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <Input @oninput="SearchGame" placeholder="Search A Game..." class="form-control" style="background-color:transparent;
+            border: 5px solid lightblue; color:black" />
+        </div>
+    </div>
+</div>
+<br />
+
 @if (Games == null)
 {
     <div class="alert alert-info">Loading Games...</div>
@@ -26,7 +37,7 @@ else
         @foreach (var game in Games)
         {
             <div class="card m-2" style="width: 18rem;">
-                <img src="/favicon.png" class="card-img-top" alt="Game Image">
+                <img src="/images/image1.jpg" class="card-img-top" alt="Game Image">
                 <div class="card-body">
                     <h5 class="card-title">@game.Title</h5>
                     <p class="card-text">Price: $@game.Price</p>
@@ -70,5 +81,36 @@ else
             }
         }
     }
+
+    /*Create SearchGame As A Method To Search For Nutrients*/
+    public async void SearchGame(ChangeEventArgs args)
+    {
+        // Store Typed Value Into SearchName
+        var SearchName = (string?)args.Value;
+
+        // Retrieve List From Games API Endpoint
+        Games = await _client.GetFromJsonAsync<List<Game>>($"{Endpoints.GamesEndpoint}");
+
+        // If Search Bar Is Empty, Retrieve Full List From API End Point
+        if (string.IsNullOrWhiteSpace(SearchName))
+        {
+            Games = await _client.GetFromJsonAsync<List<Game>>($"{Endpoints.GamesEndpoint}");
+        }
+
+        // If There's Value Typed In, Filter List To Include Results That Has Search String & Ignore Any Casing, Then Display Results In Descending Order
+        else
+        {
+            Games = Games.Where(x => x.Title.Contains(SearchName, StringComparison.OrdinalIgnoreCase))
+            .OrderByDescending(x => x.Id).ToList();
+        }
+
+        StateHasChanged();
+    }
+
 }
 
+
+
+
+    
+    
