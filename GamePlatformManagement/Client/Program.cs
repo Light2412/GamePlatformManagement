@@ -1,4 +1,5 @@
 using GamePlatformManagement.Client;
+using GamePlatformManagement.Client.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -19,6 +20,8 @@ builder.Services.AddHttpClient("GamePlatformManagement.ServerAPI", (sp, client) 
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("GamePlatformManagement.ServerAPI"));
 
 builder.Services.AddHttpClientInterceptor();
+
+builder.Services.AddScoped<HttpInterceptorService>();
 
 builder.Services.AddApiAuthorization();
 
