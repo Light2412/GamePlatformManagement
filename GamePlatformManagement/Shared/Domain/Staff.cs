@@ -11,14 +11,9 @@ namespace GamePlatformManagement.Shared.Domain
     {
         [Required]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"(6|8|9)\d(7)", ErrorMessage = "Contact Number is not a valid phone number")]
+        [RegularExpression(@"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$", ErrorMessage = "Contact Number is not valid")]
         public string? ContactNumber { get; set; }
         
-
-        [Required]
-        [DataType(DataType.Password)]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[@$!%*?&])",
-        ErrorMessage = "Password must contain one lower case letter and one special character.")]
         public string? Password { get; set; }
         
         
